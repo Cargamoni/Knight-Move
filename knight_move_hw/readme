@@ -1,0 +1,32 @@
+- Finding The Possible Moves of A Knight
+Kullanacağınız program, kullanıcı tarafından belirlenen Knight'ın lokasyonuna bağlı olarak
+yapabileceği hamleleri erkanda göstermektedir. Program iki versiyon olarak ayarlanmıştır.
+İlk versiyon Header File kullanılmadan, ikinci versiyonu ise Header File ile yapılmıştır.
+Kodlar bir editör üzerinden yazılıp, linux komut satırı aracılığıyla derlenip çalıştırılmıştır.
+Herhangi bir IDE kullanılmadığı için, CodeBlocks, DevC++ vs. üzerinde çalışıp çalışmadığı
+denenmemiştir.
+
+- Hazırlayan
+Ahmetcan İrdem
+357405 / II. Örgün
+
+- Harcanan Zaman
+Knight'ın satrançtaki hamleleri belirli olduğu için algoritması aşağıdaki link'teki resimde olduğu gibi
+şekillendirilmiştir. Bu süreçten sonra kağıt üzerindeki durum programa aktarılmıştır. Yaklaşık olarak
+düzenlemeleriyle beraber 1 gün'e yakın bir süreç ile tamamlanmıştır. (Aktif çalışma saatleri olarak.)
+
+https://drive.google.com/file/d/0ByJEvdDMZG8MQUVDNlFtRmh6N3c/view?usp=sharing
+
+- Bilinen Hatalar (Bugs)
+Knight'ın konumlandırılması için istenilen karakter birden fazla girildiği zaman bazı durumlarda
+birden fazla giriş olduğu için karater bir ifadeye ilk değer char ikinci değer char'ın int karşılığı
+olarak int değişken içierisine aktaralıabiliyor. Bu da lokasyon belirlerken hatalara sebep olabiliyor.
+
+- Prgoramın Kullanılması
+Ekrana yazdırılan satranç tahtası üzerindeki 0 olan uygun pozisyonlara Knight'ın yerleştirilmesi
+yapılabilir. Kullanıcıdan ilk istenen değer sütun, ikinci istenilen değer satır pozisyonudur.
+Bu değerlerin ilki karakter, ikincisi ise rakam olarak verilmelidir. Aksi taktirde program
+yeniden değer girmenizi isteyecektir. (Yukarıdaki belirtilen bug bu duruma dahil edilmemiştir.)
+
+- Fonksiyonların Açıklamaları
+Fonksiyon açıklamaları program içerisinde yorum satırlarında yapılmıştır.
