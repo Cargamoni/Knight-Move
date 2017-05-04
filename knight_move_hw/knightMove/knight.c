@@ -37,7 +37,7 @@ void define_chessBoard()
 }
 
 //Satranç Tahtasını Ekrana yazdırmak için bu fonksyion kullanılır. Etrafındaki 123 ve ABC de bu bölümde
-//hazırlanmıştır. Köşelere @ konulması için ekstra if blokları kullanılıştır. 
+//hazırlanmıştır. Köşelere @ konulması için ekstra if blokları kullanılıştır.
 void show_chessBoard()
 {
     printf("\nThis is your chess board. 0's shows available positions.\n$ is your knight.\n\n");
@@ -60,6 +60,8 @@ void show_chessBoard()
         //Bu bölümde eğer Knight yerleştirilmişse tahta üzerine $ işareti ile ifade edilecektir gösterilirken.
         else if(chessBoard[i][j] == 1)
           printf("%4c", 36);
+        else if(chessBoard[i][j] == 2)
+            printf("%4c", 35);
         else
         //Kalan kısımlarda ise kullanılabilir hamleler yani 0 lar ekranda gösterilir.
             printf("%4d", chessBoard[i][j]);
@@ -156,10 +158,81 @@ bool first_knight_set(char c_pos, int i_pos)
   chessBoard[line][column] = 1;
   return durum;
 }
+bool first_bishop_set(char c_pos, int i_pos)
+{
+  bool durum = false;
+  int column = 0, line = 0;
+  switch(c_pos)
+  {
+    case 'a':
+      column = 2;
+      break;
+    case 'b':
+      column = 3;
+      break;
+    case 'c':
+      column = 4;
+      break;
+    case 'd':
+      column = 5;
+      break;
+    case 'e':
+      column = 6;
+      break;
+    case 'f':
+      column = 7;
+      break;
+    case 'g':
+      column = 8;
+      break;
+    case 'h':
+      column = 9;
+      break;
+    default:
+      printf("Choose a available position in Chess Table please.\n");
+      return durum;
+  }
+
+  switch(i_pos)
+  {
+    case 1:
+      line = 2;
+      break;
+    case 2:
+      line = 3;
+      break;
+    case 3:
+      line = 4;
+      break;
+    case 4:
+      line = 5;
+      break;
+    case 5:
+      line = 6;
+      break;
+    case 6:
+      line = 7;
+      break;
+    case 7:
+      line = 8;
+      break;
+    case 8:
+      line = 9;
+      break;
+    default:
+      printf("Choose a available position in Chess Table please.\n");
+      return durum;
+  }
+  durum = true;
+  pos_i = line;
+  pos_j = column;
+  chessBoard[line][column] = 2;
+  return durum;
+}
 int knight_move(int takeMove)
 {
   //ilk başta burada yazdırma gibi bir fikrim vardı sonra case içerisine koymaya karar verdim
-  //Bu sayede yapılabilecek hareket ekranda yazdırılabiliyor ve kullanıcı seçip ona göre 
+  //Bu sayede yapılabilecek hareket ekranda yazdırılabiliyor ve kullanıcı seçip ona göre
   //Knight'ı istediği gibi hareket ettirebiliyordu. Daha sonra her bir hareketin kontrol edilmesi
   //ve ekranda gösterilmesi gerektiğini okudum ödevden ve bu kodları case içerisine taşıdım.
   //burda durmalarının sebebi ise kodu nasıl değiştirdiğimi ifade etmek ve gelişim sürecini göstermektir.
@@ -174,7 +247,7 @@ int knight_move(int takeMove)
   //printf("7 - Available moves: One up, two left.\n");
   //printf("8 - Available moves: One down, two left.\n");
   //scanf("%d", &takeMove);
-  
+
   //Burada tüm hamleler istenirse hesaplanabilir her hamleden sonraki lokasyonu bulunabilir.
   //Yorum satırındaki bölümler, hamleden sonra ilk pozisyonu kaldırmak için yapılmıştır.
   //Knight'ın yapabileceği hamle sayısı 8'dir yukarıda da belirtildiği gibi, bu da i/j olarak
@@ -283,6 +356,39 @@ int knight_move(int takeMove)
   }
 }
 
+int bishop_move(int posi, int posj, int yon)
+{
+    if(posi == 9)
+        return bishop_move(pos_i, pos_j, yon +1);
+    else if(posj == 9)
+        return bishop_move(pos_i, pos_j, yon +1);
+    else if(posi == 1)
+        return bishop_move(pos_i, pos_j, yon +1);
+    else if (posj == 1)
+        return bishop_move(pos_i, pos_j, yon +1);
+    if(yon == 0)
+    {
+       chessBoard[posi][posj] = 0;
+        return bishop_move(posi-1, posj+1, yon);
+    }
+    else if(yon == 1)
+    {
+        chessBoard[posi][posj] = 0;
+        return bishop_move(posi+1, posj+1, yon);
+    }
+    else if(yon == 2)
+    {
+        chessBoard[posi][posj] = 0;
+        return bishop_move(posi+1, posj-1, yon);
+    }
+    else if(yon == 3)
+    {
+        chessBoard[posi][posj] = 0;
+        return bishop_move(posi-1, posj-1, yon);
+    }
+
+}
+
 int main()
 {
   //karakter ve sayı istenilerek Knight'ın yerleştirileceği lokasyonu tutan değişkenler
@@ -316,10 +422,30 @@ int main()
   //tüm hamlelerin ekrana gösterilmesi istenildiği üzere bu döngü oluşturulmuştur. normalde
   //seçimi kullanıcı yapmacakken şimdi bu döngü her bir hareketi uygulamaktadır.
   for(int i = 0; i<= 7; i++)
-  { 
+  {
       //printf("%d",
       knight_move(i+1);
   }
   //Son olarak da tüm hareketler ekranda gösterilmektedir.
+  show_chessBoard();
+
+  do
+  {
+    printf("Please set a bishop in available positions. Please join your column characters in lowercase.\n");
+    printf("Choose column A-H = ");
+    scanf(" %c", &c_pick);
+    printf("Choose line   1-8 = ");
+    scanf("%d", &l_pick);
+    //Tüm boş karelere koymak istedim burdaki for döngüsünde ancak bu işlem uygulanamadı, daha
+    //sonra yeniden denenemek üzere yorum satırına eklendi.
+    /*for(int i = 1; i <= 8; i++)
+    {
+        char c = i + 96;
+        printf("%c",c);
+        first_knight_set(c,i);
+    }*/
+  }while(!first_bishop_set(c_pick, l_pick));
+  bishop_move(pos_i,pos_j, 0);
+  first_bishop_set(c_pick, l_pick);
   show_chessBoard();
 }
