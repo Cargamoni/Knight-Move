@@ -9,6 +9,7 @@
   800  gcc knight.c -o knight
   801  ./knight
 */
+//Değişiklik
 
 //Satranç Tahtası 12x12'lik bir matris olarak oluşturulmuştur. Bunun nedeni 8x8 dışarısındaki bölümler
 //-1 ile doldurulup herhangi bir şekilde dışa çıkıldığında bu alınan -1 değeri ile yanlış seçim yapıldığı
